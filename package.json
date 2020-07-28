@@ -1,0 +1,23 @@
+{
+  "name": "@rstacruz/tailwind-variable-theming",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^26.0.7",
+    "jest": "^26.1.0",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.7"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^1.5.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "tsc": "tsc"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}
