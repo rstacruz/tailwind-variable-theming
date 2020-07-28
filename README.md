@@ -2,16 +2,18 @@
 
 Small utility to define multiple themes using CSS variables
 
-> NB: This is a 0.x micro-utility.
+> NB: This is an experimental micro-utility.
 
 ## Usage
+
+Define a theme using `createTheme` _(1)_, then inject the config it generates into your project's Tailwind config _(2)_.
 
 ```js
 // tailwind.config.js
 const { createTheme } = require('@rstacruz/tailwind-variable-theming')
 const { colors } = require('tailwindcss/defaultTheme')
 
-// Define a theme
+// Define a theme [1]
 const theme = createTheme({
   name: 'default',
   colors: {
@@ -26,7 +28,7 @@ const theme = createTheme({
   },
 })
 
-// Include the variables and the plugin to your Tailwind config
+// Include the variables and the plugin to your Tailwind config [1]
 module.exports = {
   theme: {
     extend: {
@@ -40,6 +42,8 @@ module.exports = {
 }
 ```
 
+The plugin creates a utility which can be loaded onto `:root`.
+
 ```css
 :root {
   @apply theme-default;
@@ -50,22 +54,77 @@ module.exports = {
 
 The config object (`theme.config.colors`) will define colors as CSS variables. This follows what Tailwind would recommend for switching themes ([docs](https://tailwindcss.com/docs/customizing-colors/#naming-your-colors)).
 
+<table>
+<tr>
+<th>Input</th>
+<th>Output</th>
+</tr>
+
+<tr>
+<td>
+
 ```css
 .box {
   background: theme('colors.base.bodyBg');
-  /* → background: var(--base-body-bg); */
-}
-
-.paragraph {
-  @apply text-base-bodyBg;
-  /* → color: var(--base-body-bg); */
 }
 ```
 
-The plugin (`theme.plugin`) will create a utility to define those variables, which can be used in `:root` via _@apply_.
+</td>
+<td>
 
 ```css
-.theme-default {
+.box {
+  background: var(--base-body-bg);
+}
+```
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```css
+.paragraph {
+  @apply text-base-bodyBg;
+}
+```
+
+</td>
+<td>
+
+```css
+.paragraph {
+  color: var(--base-body-bg);
+}
+```
+
+</td>
+</tr>
+</table>
+
+The plugin (`theme.plugin`) will create a utility to define those variables, which can be used in `:root` via _@apply_.
+
+<table>
+<tr>
+<th>Input</th>
+<th>Output</th>
+</tr>
+
+<tr>
+<td>
+
+```css
+:root {
+  @apply theme-default;
+}
+```
+
+</td>
+<td>
+
+```css
+:root {
   --base-body-bg: #fff;
   --base-body-text: #1a202c;
   --input-body-bg: #f7fafc;
@@ -73,9 +132,14 @@ The plugin (`theme.plugin`) will create a utility to define those variables, whi
 }
 ```
 
+</td>
+</tr>
+</table>
+
 ## Examples
 
-### Dark theme
+<details>
+<summary>Creating a dark theme</summary>
 
 Two themes can be defined for `default` and `dark` themes.
 
@@ -121,6 +185,8 @@ CSS media queries can be used to define an alternate theme.
   }
 }
 ```
+
+</details>
 
 ## Thanks
 
