@@ -10,7 +10,7 @@
     "typescript": "^3.9.7"
   },
   "peerDependencies": {
-    "tailwindcss": "^1.5.2"
+    "tailwindcss": "^2.0.1"
   },
   "scripts": {
     "test": "jest",
